@@ -84,6 +84,13 @@ node scripts/selftest.mjs
 
 不建节点、不花积分，只验证 project.json、CLI 探活、登录状态和 ffmpeg 拼接。
 
+
+## 安装
+
+```bash
+dsh plugin --profile web add dsh-seedance-studio
+```
+
 ## 许可
 
 插件代码是 MIT（见 `LICENSE`）。`skills/smy-seedance-storyboard` 是第三方内容快照，原仓库未附 LICENSE，
