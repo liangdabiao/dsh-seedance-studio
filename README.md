@@ -4,6 +4,8 @@
 一句话故事 → 剧本 / 色盘 / 资产图 / 每集 15 秒分镜 → 在即梦画布上出图出片 → 拼成一部片，全程不用离开对话；
 每次生成都进「生成历史」，花了多少积分、出了什么、哪张失败都查得到。
 
+<img width="2397" height="1212" alt="image" src="https://github.com/user-attachments/assets/a470ed4d-d4c4-49ac-b80b-b31c0a84c6bc" />
+
 ## 装了什么
 
 | 能力 | 说明 |
