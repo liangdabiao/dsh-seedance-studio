@@ -6,6 +6,9 @@
 
 <img width="2397" height="1212" alt="image" src="https://github.com/user-attachments/assets/a470ed4d-d4c4-49ac-b80b-b31c0a84c6bc" />
 
+<img width="1593" height="843" alt="image" src="https://github.com/user-attachments/assets/d83740d7-2935-4222-b3d3-7f71ae59a459" />
+
+
 ## 装了什么
 
 | 能力 | 说明 |
