@@ -1,13 +1,15 @@
 // 本地自检：不建节点、不花积分，只验证数据层、官方 CLI 探活和 ffmpeg 拼接。
-// 运行：node scripts/selftest.mjs
+// 运行：node scripts/selftest.mjs [自检根目录]
+// 默认落在系统临时目录，避免每次都在工作区里留一个样片工程。
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { concatEpisodes, probeDuration, resolveFfmpeg } from '../lib/ffmpeg.js'
 import { authAccount, authStatus, resolveCli } from '../lib/dreamina.js'
 import { fileSummary, initProject, listProjects, readProject, updateProject } from '../lib/project.js'
 
-const ROOT = process.argv[2] || 'D:\\dsh-research\\.selftest'
+const ROOT = process.argv[2] || join(tmpdir(), 'dsh-seedance-selftest')
 const dir = join(ROOT, '样片')
 
 function step(name, fn) {

@@ -1,9 +1,9 @@
 {
   "name": "dsh-seedance-studio",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
-  "description": "上美影短剧工坊：随包提供上美影风格 Seedance 分镜 skill，并用即梦官方 CLI（dreamina-canvas）在画布上出图、出片、拼接成片，侧栏带项目面板。",
+  "description": "上美影短剧工坊：随包提供上美影风格 Seedance 分镜 skill，用即梦官方 CLI（dreamina-canvas）在画布上出图、出片、拼接成片；侧栏「短剧工坊」工作台（概览/我的短剧/生成历史/新建/工作流）与生成历史持久化。",
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
@@ -14,6 +14,7 @@
   "files": [
     "index.js",
     "client.js",
+    "lab",
     "lib",
     "skills",
     "locale/*.json",

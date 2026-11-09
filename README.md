@@ -1,7 +1,8 @@
 # 上美影短剧工坊（dsh-seedance-studio）
 
 把 [smy-seedance-storyboard](https://github.com/) 这套「上美影风格短剧」skill 搬进 DeepSeek Harness，并接上**即梦官方 CLI（dreamina-canvas）**：
-一句话故事 → 剧本 / 色盘 / 资产图 / 每集 15 秒分镜 → 在即梦画布上出图出片 → 拼成一部片，全程不用离开对话。
+一句话故事 → 剧本 / 色盘 / 资产图 / 每集 15 秒分镜 → 在即梦画布上出图出片 → 拼成一部片，全程不用离开对话；
+每次生成都进「生成历史」，花了多少积分、出了什么、哪张失败都查得到。
 
 ## 装了什么
 
@@ -12,6 +13,8 @@
 | `jimeng_asset` | 每个资产在画布上建图片节点 → 等待生成 → 下载到 `assets/` |
 | `jimeng_episode` | 每集建视频节点（m2v，资产节点作参考）→ 等待 → 下载到 `videos/` |
 | `seedance_assemble` | ffmpeg 把各集拼成 `out/final.mp4`，可选贴旁白音轨 |
+| `seedance_history` | 查生成历史：列表 / 单条详情 / 积分汇总 / 清空 |
+| 侧栏「短剧工坊」 | 工作台：概览 · 我的短剧 · 生成历史 · 新建短剧 · 文-资-视-剪 |
 
 ## 前置
 
@@ -38,17 +41,27 @@ dreamina-canvas --format json version
 
 生成会复用同一张即梦画布，`project.json` 里记着画布 id 和每个节点的 nodeId，随时能回画布继续改。
 
-## 侧栏面板
+## 侧栏工作台（布局对齐「投资尽调」）
 
-装好后侧栏会多一个「短剧工坊」：
+装好后侧栏多一个「短剧工坊」，主区域是一个完整页面：
 
-- 顶部填**项目根目录**（默认 `D:\dsh-research`）→ 扫描，左边列出所有含 `project.json` 的项目
-- 点项目看资产墙和分集：资产图直接预览，完成的集内嵌播放
-- 「全部出图」「出下一集」「拼接成片」按钮直接调 Host 的生成接口，进度条每 2 秒轮询，跑完自动刷新
-- 每集卡片可以单独「出本集 / 重出本集」，失败的资产会用红字显示原因
-- 面板和工具走同一套代码：路径校验、积分上限（图片 10 / 视频 100）、错误文案完全一致
+| 页面 | 内容 |
+|---|---|
+| 概览 | 在做的短剧 / 资产图 / 已出片集 / 累计积分 / 生成次数；即梦登录状态与积分；最近项目、最近生成 |
+| 我的短剧 | 项目卡（封面、画幅、色盘、资产与分集进度）；可换扫描目录、搜索 |
+| 项目详情 | 资产墙（点图看大图、看 prompt 与积分）、分集（内嵌播放、重出本集）、这个项目的生成记录、出图/出片/拼接按钮 |
+| 生成历史 | 每次生成一条：时间、类型、项目、摘要、积分、成功/失败；可按类型/状态/项目/关键词筛，点开看动了哪些对象、产物路径、错误原文 |
+| 新建短剧 | 填剧名、集数、秒数、画幅、风格、色盘、故事梗概 → 打开新对话并带上「文-资-视-剪」全流程指令 |
+| 文-资-视-剪 | 四步工作流、模型报价表、项目目录结构、常见问题 |
 
-首次装好或更新了 `client.js` 后，需要刷新一次页面（Ctrl+R）才会加载新的浏览器模块。
+页面按钮和工具走同一套代码：路径校验、积分上限（图片 10 / 视频 100）、错误文案完全一致；
+点「新建短剧 / 在对话里继续」不会自动发消息，只是把写好的指令填进新对话的输入框。
+
+**生成历史存在哪**：`$DSH_HOME/seedance-studio/history.json`（默认 `C:\Users\<你>\.dsh\seedance-studio\`），
+页面和 `seedance_history` 工具读的是同一份；`settings.json` 记着页面用过的扫描目录。历史最多保留 400 条，只删记录不动产物。
+
+首次装好或改了 `client.js` 后刷新一次页面（Ctrl+R）；**改了 Host 半边（`lib/`、`index.js`）需要重启一次 DeepSeek Harness**
+（宿主的热更新不监听 `node_modules` 里的链接插件）——会话记录不受影响。
 
 ## 典型流程
 
@@ -57,6 +70,7 @@ dreamina-canvas --format json version
 3. `jimeng_asset action=generate`（可先 `dryRun: true`）
 4. `jimeng_episode action=generate`
 5. `seedance_assemble` → `out/final.mp4`
+6. `seedance_history action=stats`：总共花了多少积分
 
 ## 限制与费用
 
@@ -79,11 +93,12 @@ dreamina-canvas --format json version
 ## 自检
 
 ```powershell
-node scripts/selftest.mjs
+node scripts/api-test.mjs     # 起本地 http，打一遍 catalog / project / history / 静态页面（不花积分）
+node scripts/client-smoke.mjs # 浏览器半边能否被 __ModuleLoader__ 接住、两个 slot 都注册
+node scripts/selftest.mjs     # 数据层 + CLI 探活 + ffmpeg 拼接（不建节点、不花积分）
 ```
 
-不建节点、不花积分，只验证 project.json、CLI 探活、登录状态和 ffmpeg 拼接。
-
+`api-test.mjs` 会把 `$DSH_HOME` 指到 `.tmp/` 下的临时目录，不碰你的真实历史。
 
 ## 安装
 

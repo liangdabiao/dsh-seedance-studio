@@ -1,7 +1,7 @@
 // 上美影短剧工坊 · Host 半边
 // 1. 把随包的 skill（skills/smy-seedance-storyboard）注册进 ctx.skills，模型和 /skill 都能用
-// 2. 注册四个工具（lib/tools.js）：项目管理、批量出图、单集出片、拼接
-// 3. 一个只读状态接口（lib/api.js）：/seedance-studio/health
+// 2. 注册五个工具（lib/tools.js）：项目管理、批量出图、单集出片、拼接、生成历史
+// 3. /seedance-studio 工作台：静态页面（lab/）+ 数据接口（lib/api.js）
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { registerApi } from './lib/api.js'

@@ -1,4 +1,5 @@
-# 上美影短剧工坊：Host 半边。注册 skill（smy-seedance-storyboard）、四个工具和一个只读状态接口。
+# 上美影短剧工坊：Host 半边。注册 skill（smy-seedance-storyboard）、五个工具
+# （项目/出图/出片/拼接/生成历史）和 /seedance-studio 工作台（静态页面 + 数据接口）。
 - insert:
     - id: seedance-studio
       name: 'dsh-seedance-studio'

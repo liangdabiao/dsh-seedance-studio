@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN" data-scheme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>短剧工坊 · 上美影</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<aside class="rail">
+  <a class="brand" href="#/">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4.5" width="18" height="15" rx="2"></rect>
+        <path d="M8 4.5v15M16 4.5v15M3 9.5h5M3 14.5h5M16 9.5h5M16 14.5h5"></path>
+      </svg>
+    </span>
+    <span class="brand-text"><b>短剧工坊</b><small>上美影 · dsh-seedance-studio</small></span>
+  </a>
+  <nav class="nav">
+    <div class="nav-group">创作</div>
+    <a href="#/" data-view="home">概览</a>
+    <a href="#/projects" data-view="projects">我的短剧<span class="count" id="nav-projects"></span></a>
+    <a href="#/history" data-view="history">生成历史<span class="count" id="nav-history"></span></a>
+    <a href="#/new" data-view="new">新建短剧</a>
+    <div class="nav-group">方法</div>
+    <a href="#/guide" data-view="guide">文-资-视-剪</a>
+  </nav>
+  <div class="rail-foot" id="rail-foot"></div>
+</aside>
+
+<main class="main" id="app"><div class="loading">加载中…</div></main>
+
+<div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="预览">
+  <div class="viewer-bar">
+    <span class="title" id="viewer-title"></span>
+    <span class="grow"></span>
+    <button id="viewer-copy" hidden title="复制路径">复制路径</button>
+    <button id="viewer-close" title="关闭（Esc）">关闭</button>
+  </div>
+  <div class="viewer-body" id="viewer-body"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
