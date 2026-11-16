@@ -108,7 +108,7 @@ node scripts/selftest.mjs     # 数据层 + CLI 探活 + ffmpeg 拼接（不建�
 ## 安装
 
 ```bash
-dsh plugin --profile web add dsh-seedance-studio
+dsh plugin --profile web add https://github.com/liangdabiao/dsh-seedance-studio
 ```
 
 ## 许可
